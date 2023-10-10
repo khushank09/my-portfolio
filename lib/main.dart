@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_portfolio/screens/home.dart';
+import 'package:my_portfolio/widgets/appbar_button.dart';
 
 Widget getApp({required Widget app}) {
   return app;
@@ -31,6 +32,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    Widget content = const HomeScreen();
+
     return MaterialApp(
       theme: ThemeData(
         // This is the theme of your application.
@@ -49,14 +52,77 @@ class MyApp extends StatelessWidget {
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(
-            seedColor: Color.fromARGB(255, 63, 63, 63)),
+          seedColor: const Color.fromARGB(255, 63, 63, 63),
+        ),
         useMaterial3: true,
       ).copyWith(
         textTheme: GoogleFonts.mooliTextTheme(
           Theme.of(context).textTheme,
         ),
       ),
-      home: const HomeScreen(),
+      home: Scaffold(
+        body: content,
+        appBar: AppBar(
+          backgroundColor:
+              Theme.of(context).colorScheme.onSurfaceVariant.withOpacity(0.75),
+          actions: const [
+            Padding(
+              padding: EdgeInsets.only(right: 100),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  AppBarButton(data: 'Home'),
+                  AppBarButton(data: 'About'),
+                  AppBarButton(data: 'Services'),
+                  AppBarButton(data: 'Experience'),
+                  AppBarButton(data: 'Contact'),
+                ],
+              ),
+            )
+          ],
+          title: const Padding(
+            padding: EdgeInsets.only(left: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                // GestureDetector(
+                //   onTap: () async {
+                //     await showDialog(
+                //         context: context, builder: (_) => const ImageDialog());
+                //   },
+                //   child: Container(
+                //     decoration: BoxDecoration(
+                //       shape: BoxShape.circle,
+                //       border: Border.all(
+                //         color: Theme.of(context).colorScheme.onPrimary,
+                //         width: 2.0,
+                //       ),
+                //     ),
+                //     child: const CircleAvatar(
+                //       radius: 24,
+                //       backgroundImage: AssetImage('assets/images/profile.jpg'),
+                //     ),
+                //   ),
+                // ),
+                SizedBox(
+                  width: 20,
+                ),
+                // Text(
+                //   'KHUSHANK',
+                //   style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                //         color: Theme.of(context)
+                //             .colorScheme
+                //             .onPrimary
+                //             .withAlpha(200),
+                //         fontWeight: FontWeight.bold,
+                //         letterSpacing: 2,
+                //       ),
+                // ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
