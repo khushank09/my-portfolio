@@ -66,7 +66,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
     var future = Future(() {});
     for (var i = 0; i < allLogos.length; i++) {
       future = future.then((_) {
-        return Future.delayed(const Duration(milliseconds: 250), () {
+        return Future.delayed(const Duration(milliseconds: 280), () {
           logos.add(allLogos[i]);
           _animatedListKey.currentState!.insertItem(i);
         });
@@ -130,6 +130,16 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                 curve: Curves.easeInBack,
                 child: const Text(
                   'WELCOME!',
+                  style: TextStyle(shadows: [
+                    Shadow(
+                        color: Colors.black,
+                        blurRadius: 2,
+                        offset: Offset(5, 0)),
+                    Shadow(
+                        color: Colors.black45,
+                        blurRadius: 4,
+                        offset: Offset(10, 0)),
+                  ]),
                 ),
               ),
               const SizedBox(
@@ -165,15 +175,32 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                   borderRadius: BorderRadius.circular(25),
                   border: Border.all(color: Colors.grey.shade800, width: 2),
                   color: Colors.grey.shade800,
+                  boxShadow: const [
+                    BoxShadow(
+                        color: Colors.white24,
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        blurStyle: BlurStyle.normal),
+                    // BoxShadow(
+                    //     color: Colors.grey,
+                    //     spreadRadius: 2,
+                    //     blurRadius: 2,
+                    //     blurStyle: BlurStyle.solid),
+                  ],
                 ),
                 child: Text(
                   'Software Engineer/Developer',
                   style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        color: Colors.blueGrey.shade200,
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-
-                        // background: Paint()..color = Colors.teal,
+                      color: Colors.blueGrey.shade200,
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      shadows: [
+                        Shadow(
+                            blurRadius: 2,
+                            color: Colors.black,
+                            offset: Offset(2, 1))
+                      ]
+                      // background: Paint()..color = Colors.teal,
                       ),
                 ),
               ),
@@ -193,6 +220,12 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                   'I am a software engineer with more than 2 years of experience. I have knowledge of various technologies/frameworks such as Flutter, Azure Data Factory, Azure Synapse, etc.',
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         color: Colors.blueGrey.shade200,
+                        shadows: const [
+                          Shadow(
+                              blurRadius: 3,
+                              color: Colors.black,
+                              offset: Offset(2, 2))
+                        ],
                         fontSize: 18,
                       ),
                 ),
@@ -228,9 +261,15 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                 'KHUSHANK MADAAN',
                 style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                       color: Colors.grey.withAlpha(255),
+                      shadows: const [
+                        Shadow(
+                            color: Colors.black,
+                            blurRadius: 2,
+                            offset: Offset(2, 2))
+                      ],
                       fontWeight: FontWeight.bold,
                       letterSpacing: 2,
-                      backgroundColor: Colors.grey.shade900.withOpacity(0.8),
+                      // backgroundColor: Colors.grey.shade900.withOpacity(0.8),
                     ),
               ),
             ],

@@ -24,7 +24,9 @@ class LogoImage extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .labelMedium!
-                .copyWith(color: Colors.white),
+                .copyWith(color: Colors.white, shadows: [
+              Shadow(blurRadius: 4, color: Colors.black, offset: Offset(2, 2))
+            ]),
           ),
         const SizedBox(
           height: 10,

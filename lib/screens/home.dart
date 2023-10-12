@@ -9,9 +9,10 @@ class HomeScreen extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-            fit: BoxFit.cover,
-            image: AssetImage('assets/images/home_background.jpg'),
-            opacity: 1),
+          fit: BoxFit.cover,
+          image: AssetImage('assets/images/home_background.jpg'),
+          opacity: 1,
+        ),
       ),
       // alignment: Alignment.center,
       height: MediaQuery.of(context).size.height,
