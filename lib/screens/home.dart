@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_portfolio/widgets/appbar_button.dart';
 import 'package:my_portfolio/widgets/home_widget.dart';
-import 'package:my_portfolio/widgets/image_dialog.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
