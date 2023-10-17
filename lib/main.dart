@@ -1,39 +1,58 @@
-// import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:my_portfolio/screens/contact.dart';
 import 'package:my_portfolio/screens/home.dart';
 import 'package:my_portfolio/widgets/appbar_button.dart';
 
 Widget getApp({required Widget app}) {
   return app;
-  // if (!kIsWeb) return app;
-  // return Center(
-  //   child: Container(
-  //     decoration: BoxDecoration(
-  //       color: Colors.red.shade700,
-  //     ),
-  //     child: ClipRect(
-  //       child: SizedBox(
-  //         width: 600,
-  //         child: app,
-  //       ),
-  //     ),
-  //   ),
-  // );
 }
 
 void main() {
   runApp(getApp(app: const MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  Widget content = const HomeScreen();
+
+  Widget scaffoldContainer(Widget child) {
+    return Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          fit: BoxFit.cover,
+          image: AssetImage('assets/images/home_background.jpg'),
+          opacity: 1,
+        ),
+      ),
+      // alignment: Alignment.center,
+      height: MediaQuery.of(context).size.height,
+      width: MediaQuery.of(context).size.width,
+      padding: const EdgeInsets.only(left: 200),
+      child: child,
+    );
+  }
+
+  void navigateToContactScreen() {
+    setState(() {
+      content = const ContactScreen();
+    });
+  }
+  void navigateToHomeScreen() {
+    setState(() {
+      content = const HomeScreen();
+    });
+  }
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    Widget content = const HomeScreen();
-
     return MaterialApp(
       theme: ThemeData(
         // This is the theme of your application.
@@ -61,66 +80,27 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: Scaffold(
-        body: content,
+        body: scaffoldContainer(content),
         appBar: AppBar(
           backgroundColor:
               Theme.of(context).colorScheme.onSurfaceVariant.withOpacity(0.75),
-          actions: const [
+          actions: [
             Padding(
-              padding: EdgeInsets.only(right: 100),
+              padding: const EdgeInsets.only(right: 100),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  AppBarButton(data: 'Home'),
-                  AppBarButton(data: 'About'),
-                  AppBarButton(data: 'Services'),
-                  AppBarButton(data: 'Experience'),
-                  AppBarButton(data: 'Contact'),
+                  AppBarButton(onTap: navigateToHomeScreen, data: 'Home'),
+                  AppBarButton(onTap: navigateToContactScreen, data: 'About'),
+                  AppBarButton(
+                      onTap: navigateToContactScreen, data: 'Services'),
+                  AppBarButton(
+                      onTap: navigateToContactScreen, data: 'Experience'),
+                  AppBarButton(onTap: navigateToContactScreen, data: 'Contact'),
                 ],
               ),
             )
           ],
-          title: const Padding(
-            padding: EdgeInsets.only(left: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                // GestureDetector(
-                //   onTap: () async {
-                //     await showDialog(
-                //         context: context, builder: (_) => const ImageDialog());
-                //   },
-                //   child: Container(
-                //     decoration: BoxDecoration(
-                //       shape: BoxShape.circle,
-                //       border: Border.all(
-                //         color: Theme.of(context).colorScheme.onPrimary,
-                //         width: 2.0,
-                //       ),
-                //     ),
-                //     child: const CircleAvatar(
-                //       radius: 24,
-                //       backgroundImage: AssetImage('assets/images/profile.jpg'),
-                //     ),
-                //   ),
-                // ),
-                SizedBox(
-                  width: 20,
-                ),
-                // Text(
-                //   'KHUSHANK',
-                //   style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                //         color: Theme.of(context)
-                //             .colorScheme
-                //             .onPrimary
-                //             .withAlpha(200),
-                //         fontWeight: FontWeight.bold,
-                //         letterSpacing: 2,
-                //       ),
-                // ),
-              ],
-            ),
-          ),
         ),
       ),
     );
