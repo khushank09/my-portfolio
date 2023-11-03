@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:my_portfolio/screens/about.dart';
 import 'package:my_portfolio/screens/contact.dart';
 import 'package:my_portfolio/screens/home.dart';
+import 'package:my_portfolio/size_config.dart';
 import 'package:my_portfolio/widgets/appbar_button.dart';
 
 Widget getApp({required Widget app}) {
@@ -20,39 +22,43 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Widget content = const HomeScreen();
-
-  Widget scaffoldContainer(Widget child) {
-    return Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          fit: BoxFit.cover,
-          image: AssetImage('assets/images/home_background.jpg'),
-          opacity: 1,
-        ),
-      ),
-      // alignment: Alignment.center,
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
-      padding: const EdgeInsets.only(left: 200),
-      child: child,
-    );
-  }
+  String screen = 'homeScreen';
+  late Widget content;
 
   void navigateToContactScreen() {
     setState(() {
-      content = const ContactScreen();
+      screen = 'contactScreen';
     });
   }
+
   void navigateToHomeScreen() {
     setState(() {
-      content = const HomeScreen();
+      screen = 'homeScreen';
     });
+  }
+
+  void navigateToAboutScreen() {
+    setState(() {
+      screen = 'aboutScreen';
+    });
+  }
+
+  void setContent() {
+    if (screen == 'contactScreen') {
+      content = ContactScreen();
+    } else if (screen == 'homeScreen') {
+      content = HomeScreen();
+    } else if (screen == 'aboutScreen') {
+      content = AboutScreen();
+    }
   }
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    ScreenSize.recalculate(context);
+    setContent();
+
     return MaterialApp(
       theme: ThemeData(
         // This is the theme of your application.
@@ -80,18 +86,18 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       home: Scaffold(
-        body: scaffoldContainer(content),
+        body: ScaffoldContainer(content),
         appBar: AppBar(
           backgroundColor:
               Theme.of(context).colorScheme.onSurfaceVariant.withOpacity(0.75),
           actions: [
             Padding(
-              padding: const EdgeInsets.only(right: 100),
+              padding: EdgeInsets.only(right: 9.wb),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   AppBarButton(onTap: navigateToHomeScreen, data: 'Home'),
-                  AppBarButton(onTap: navigateToContactScreen, data: 'About'),
+                  AppBarButton(onTap: navigateToAboutScreen, data: 'About'),
                   AppBarButton(
                       onTap: navigateToContactScreen, data: 'Services'),
                   AppBarButton(
@@ -103,6 +109,37 @@ class _MyAppState extends State<MyApp> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class ScaffoldContainer extends StatelessWidget {
+  final Widget widget;
+
+  const ScaffoldContainer(
+    this.widget, {
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          fit: BoxFit.cover,
+          image: AssetImage('assets/images/home_background.jpg'),
+          opacity: 1,
+        ),
+      ),
+      // alignment: Alignment.center,
+      height: 100.hb,
+      width: 100.wb,
+      child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: SingleChildScrollView(
+            child: Padding(
+                padding: EdgeInsets.only(left: 9.wb, top: 5.hb), child: widget),
+          )),
     );
   }
 }

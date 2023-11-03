@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:my_portfolio/size_config.dart';
 
 class SocialMediaLogoImage extends StatelessWidget {
   const SocialMediaLogoImage({super.key, required this.onTap, this.icon});
@@ -15,17 +16,8 @@ class SocialMediaLogoImage extends StatelessWidget {
         icon,
       ),
       color: Colors.blue,
-      iconSize: 35,
+      iconSize: 4.rb,
       hoverColor: Colors.grey,
     );
-    // return Container(
-    //   width: 50,
-    //   height: 50,
-    //   decoration: BoxDecoration(
-    //     border: Border.all(color: Colors.white, width: 2),
-    //     shape: BoxShape.circle,
-
-    //   ),
-    // );
   }
 }

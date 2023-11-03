@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_portfolio/size_config.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 var myEmail = 'khushankmadaan2k@gmail.com';
@@ -26,16 +27,16 @@ class _ContactScreenState extends State<ContactScreen> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 32.0),
+      padding:  EdgeInsets.only(top: 4.5.hb),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              const Text(
+               Text(
                 'Email : ',
-                style: TextStyle(fontSize: 28, color: Colors.white),
+                style: TextStyle(fontSize: 3.rb, color: Colors.white),
               ),
               GestureDetector(
                 onTap: _launchEmailApp,
@@ -54,7 +55,7 @@ class _ContactScreenState extends State<ContactScreen> {
                   child: Text(
                     myEmail,
                     style: TextStyle(
-                        fontSize: 28,
+                        fontSize: 3.rb,
                         color: isHoveringEmail ? Colors.blueAccent : Colors.white),
                   ),
                 ),

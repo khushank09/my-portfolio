@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:my_portfolio/size_config.dart';
 import 'package:my_portfolio/widgets/logo_image.dart';
 import 'package:my_portfolio/widgets/social_media_logo_image.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -18,14 +19,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     color: Colors.grey.withAlpha(250),
     letterSpacing: 2,
     fontWeight: FontWeight.normal,
-    fontSize: 5,
+    fontSize: 0.9.sb,
   );
 
   late AnimationController profileNameAnimationController;
-
-  var logos = [];
-  final _animatedListKey = GlobalKey<AnimatedListState>();
-  var profileRadius = 0.0;
   late Animation<Offset> rightOffset;
   late Animation<Offset> leftOffset;
 
@@ -40,46 +37,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     final Uri url = Uri.parse('mailto:$myEmail');
     if (!await launchUrl(url)) {
       throw Exception('Could not launch $url');
-    }
-  }
-
-  void _loadLogos() {
-    const allLogos = [
-      LogoImage(
-        path: 'assets/images/ios.jpg',
-        title: 'iOS',
-      ),
-      SizedBox(
-        width: 25,
-      ),
-      LogoImage(
-        path: 'assets/images/android.jpg',
-        title: 'ANDROID',
-      ),
-      SizedBox(
-        width: 25,
-      ),
-      LogoImage(
-        path: 'assets/images/laptop.jpg',
-        title: 'WEB',
-      ),
-      SizedBox(
-        width: 25,
-      ),
-      LogoImage(
-        path: 'assets/images/azure.png',
-        title: 'AZURE',
-      ),
-    ];
-
-    var future = Future(() {});
-    for (var i = 0; i < allLogos.length; i++) {
-      future = future.then((_) {
-        return Future.delayed(const Duration(milliseconds: 280), () {
-          logos.add(allLogos[i]);
-          _animatedListKey.currentState!.insertItem(i);
-        });
-      });
     }
   }
 
@@ -106,10 +63,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             color: Colors.grey.withAlpha(250),
             letterSpacing: 2,
             fontWeight: FontWeight.bold,
-            fontSize: 75,
+            fontSize: 10.sb,
           );
-          _loadLogos();
-          profileRadius = 425;
           profileNameAnimationController.forward();
         }));
   }
@@ -123,13 +78,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         SlideTransition(
           position: leftOffset,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -137,66 +92,43 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 style: style,
                 duration: const Duration(seconds: 2, milliseconds: 400),
                 curve: Curves.easeInBack,
-                child: const Text(
+                child: Text(
                   'WELCOME!',
-                  style: TextStyle(shadows: [
+                  style: TextStyle(fontSize: 8.rb, shadows: [
                     Shadow(
                         color: Colors.black,
-                        blurRadius: 2,
-                        offset: Offset(5, 0)),
+                        blurRadius: 0.05.rb,
+                        offset: Offset(0.5.rb, 0)),
                     Shadow(
                         color: Colors.black45,
-                        blurRadius: 4,
-                        offset: Offset(10, 0)),
+                        blurRadius: 0.4.rb,
+                        offset: Offset(0.8.rb, 0)),
                   ]),
                 ),
               ),
-              const SizedBox(
-                height: 60,
-              ),
               SizedBox(
-                height: 125,
-                width: 500,
-                child: AnimatedList(
-                    scrollDirection: Axis.horizontal,
-                    key: _animatedListKey,
-                    initialItemCount: logos.length,
-                    itemBuilder: (context, index, animation) {
-                      return SlideTransition(
-                        textDirection: TextDirection.rtl,
-                        position: animation.drive(
-                          Tween(
-                            begin: const Offset(1.0, 0.0),
-                            end: const Offset(0.0, 0.0),
-                          ),
-                        ),
-                        child: logos[index],
-                      );
-                    }),
+                height: 4.hb,
               ),
-              const SizedBox(
-                height: 50,
+              LogoList(),
+              SizedBox(
+                height: 7.hb,
               ),
               Container(
-                padding: const EdgeInsets.all(8),
+                padding: EdgeInsets.all(1.rb),
+                width: 50.rb,
                 decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(25),
-                  border: Border.all(color: Colors.grey.shade800, width: 2),
+                  borderRadius: BorderRadius.circular(3.rb),
+                  border:
+                      Border.all(color: Colors.grey.shade800, width: 0.2.rb),
                   color: Colors.grey.shade800,
-                  boxShadow: const [
-                    BoxShadow(
-                        color: Colors.white24,
-                        spreadRadius: 2,
-                        blurRadius: 5,
-                        blurStyle: BlurStyle.normal),
-                  ],
                 ),
                 child: Text(
+                  textAlign: TextAlign.center,
                   'Software Engineer/Developer',
                   style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                       color: Colors.blueGrey.shade200,
-                      fontSize: 28,
+                      fontSize: 3.rb,
                       fontWeight: FontWeight.bold,
                       shadows: const [
                         Shadow(
@@ -206,18 +138,18 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       ]),
                 ),
               ),
-              const SizedBox(
-                height: 25,
+              SizedBox(
+                height: 3.5.hb,
               ),
               Container(
-                padding: const EdgeInsets.all(8),
+                padding: EdgeInsets.all(1.rb),
                 decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(25),
-                  border: Border.all(color: Colors.grey.shade800, width: 2),
+                  borderRadius: BorderRadius.circular(3.rb),
+                  border: Border.all(color: Colors.grey.shade800, width: .2.rb),
                   color: Colors.grey.shade800,
                 ),
-                width: 700,
+                width: 60.rb,
                 child: Text(
                   'I am a software engineer with more than 2 years of experience. I have knowledge of various technologies/frameworks such as Flutter, Azure Data Factory, Azure Synapse, etc.',
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
@@ -228,12 +160,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               color: Colors.black,
                               offset: Offset(2, 2))
                         ],
-                        fontSize: 18,
+                        fontSize: 2.5.sb,
                       ),
                 ),
               ),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: 2.8.hb,
               ),
               Row(
                 children: [
@@ -241,8 +173,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     icon: FontAwesomeIcons.linkedin,
                     onTap: _launchLinkedInURL,
                   ),
-                  const SizedBox(
-                    width: 10,
+                  SizedBox(
+                    width: 1.5.wb,
                   ),
                   SocialMediaLogoImage(
                     icon: FontAwesomeIcons.envelope,
@@ -253,6 +185,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             ],
           ),
         ),
+        SizedBox(
+          width: 15.wb,
+        ),
         SlideTransition(
           position: rightOffset,
           child: Column(
@@ -262,21 +197,22 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             children: [
               LogoImage(
                 path: 'assets/images/profile.jpg',
-                width: profileRadius,
-                height: profileRadius,
+                factor: 4.2,
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: 1.4.hb),
               Text(
                 'KHUSHANK',
                 style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                       color: Colors.grey.withAlpha(255),
-                      shadows: const [
+                      shadows: [
                         Shadow(
-                            color: Colors.blueGrey,
-                            blurRadius: 2,
-                            offset: Offset(2, 1))
+                          color: Colors.blueGrey,
+                          blurRadius: 0.1.rb,
+                          offset: Offset(0.1.rb, 0.05.rb),
+                        ),
                       ],
                       fontWeight: FontWeight.bold,
+                      fontSize: 3.5.rb,
                       letterSpacing: 2,
                       // backgroundColor: Colors.grey.shade900.withOpacity(0.8),
                     ),
